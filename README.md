@@ -1,6 +1,7 @@
 ONE
 ===
 **Descriptions**
+
 This is a project that simple setup the linux env cutomizely for user respect to the hardware is provided.
 1. System report: parsing all avaliable usefull info from this hardware
 	1. OS 
