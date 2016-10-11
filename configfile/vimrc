@@ -1,0 +1,70 @@
+" vimrc configuration file by Chauncey Yan
+""""""""""""""""""""""""""""""""""""""""""
+" file type handler
+filetype on
+
+" For plugins to load correctly
+filetype plugin indent on
+filetype indent on
+
+"This allows for c-like indentation
+autocmd FileType c,cpp set cindent  
+
+" Turn on syntax highlighting
+syntax on  
+
+"Change the color of the text
+"color slate
+"color desert
+"color torte
+
+" Color scheme (terminal)
+set t_Co=256
+colorscheme Benokai
+"colorscheme evening
+
+" Encoding
+set encoding=utf-8
+
+" Set indentation
+set smartindent
+set cindent
+set autoindent
+
+" Whitespace
+set wrap
+set textwidth=80
+set formatoptions=tcqrn1
+set shiftwidth=4
+set tabstop=4
+set sw=4  "Set the sw for the auto indent to 8 spaces
+set expandtab
+set noshiftround
+
+" Show the line numbers on the left
+set number 
+set relativenumber
+
+" Cursor motion
+set scrolloff=3
+set backspace=indent,eol,start
+
+" Move up/down editor lines
+nnoremap j gj
+nnoremap k gk
+
+" usefull settings
+set pastetoggle=<F10>
+set mouse=a
+
+" Rendering
+set ttyfast
+
+" Searching
+nnoremap / /\v
+vnoremap / /\v
+set hlsearch
+set incsearch
+set smartcase
+set showmatch
+

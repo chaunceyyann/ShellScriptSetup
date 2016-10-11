@@ -1,8 +1,8 @@
-ONE
+Linux Setup Script
 ===
 **Descriptions**
 
-This is a project that simple setup the linux env cutomizely for user respect to the hardware is provided.
+This is a project that simple setup the linux env cutomizely respect to the hardware is provided.
 
 **Program flow**
  1. System report: parsing all avaliable usefull info from this hardware
@@ -11,7 +11,9 @@ This is a project that simple setup the linux env cutomizely for user respect to
   3. Shell 
   4. coding env 
   5. hardware info
- 2. Choose the customization level the user want.
- 3. Download the files from github then reboot if allowed.
+ 2. Detect shell and prompt to setup
+ 3. Detect vim and prompt to setup
+ 4. Detect git and prompt to setup
+ 5. Detect tmux and prompt to setup
 
 

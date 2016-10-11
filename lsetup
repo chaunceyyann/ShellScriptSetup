@@ -1,0 +1,65 @@
+#!/bin/sh
+#####################################################################################
+# Program	: Linux Setup Script
+# Author	: Chauncey Yan
+# Features	: List the info. of the system. Prompt to setup shell, vim, git, and tmux
+# Revision	: 0.1
+# Mod date	: Oct 10 2016
+# Updates	:
+# Issues	:
+######################################################################################################
+# Init		:
+######################################################################################################
+# Name      : check system information
+# Issues	:
+######################################################################################################
+check_sys (){
+    # system report
+    echo "Checking system configurations."
+    type hostname >/dev/null 2>&1 || { echo >&2 "No hostname!"; exit 1; }
+    uname -a
+    type uptime >/dev/null 2>&1 || { echo >&2 "No uptime!"; exit 1; }
+    echo $SHELL
+
+    return ;
+}
+# setup shell bashrc zshrc
+# setup .aliases
+# setup autpo start
+shell_setup(){
+    echo shell setup;
+}
+# setup vimrc 
+# setup vim plugin
+vim_setup(){
+    echo vim setup;
+}
+# setup git shortcuts, name, email, ssh
+git_setup(){
+    echo git setup;
+}
+# setup tmux config
+tmux_setup(){
+    echo tmux setup;
+}
+
+######################################################################################################
+# Main		:
+# Issues	:
+######################################################################################################
+echo "Linux Setup Script. Version 0.1."
+check_sys;
+shell_setup;
+vim_setup;
+git_setup;
+tmux_setup;
+exit;
+#if [[ -z $var ]];then # -n for not empty
+#	echo var is empty
+#fi
+#for i in $(seq 1 2 20);do
+#	echo number $i
+#done
+
+
+
