@@ -97,7 +97,8 @@ tmux_setup(){
 
 ############################################
 # file merge 
-# diff then merge the differences
+# append new file at the end of the original
+# comment out all of same lines
 ############################################
 file_merge(){
     echo "################################";
@@ -107,8 +108,9 @@ file_merge(){
     return
 }
 ############################################
-# file merge 
-# diff then merge the differences
+# file swap
+# backup the original file 
+# replace with the new config
 ############################################
 file_swap(){
     echo "################################";
