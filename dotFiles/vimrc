@@ -21,7 +21,7 @@ syntax on
 " Color scheme (terminal)
 set t_Co=256
 colorscheme Benokai
-"colorscheme evening
+"colorscheme ir_black
 
 " Encoding
 set encoding=utf-8
@@ -53,10 +53,6 @@ set backspace=indent,eol,start
 nnoremap j gj
 nnoremap k gk
 
-" usefull settings
-set pastetoggle=<F10>
-set mouse=a
-
 " Rendering
 set ttyfast
 
@@ -67,4 +63,12 @@ set hlsearch
 set incsearch
 set smartcase
 set showmatch
+
+" usefull settings
+set pastetoggle=<F10>
+set mouse=a
+set nobackup
+set nowritebackup
+set noundofile
+set ttymouse=xterm2
 

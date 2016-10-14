@@ -16,7 +16,7 @@
 check_sys (){
     # system report
     echo "################################";
-    echo "Checking system configurations."
+    printf "${GREEN}Checking system configurations...${NC}\n"
     host_name=`uname -n`
     system=`uname -o`
     kernel=`uname -s`
@@ -27,16 +27,11 @@ check_sys (){
     echo "Kernel   : $kernel";
     echo "Release  : $kernel_release";
 
-    #case $system in 
-    #    "Cygwin") echo System: Cygwin;;
-#        *) echo Else;;
-#esac
-
-#type uptime >/dev/null 2>&1 || { echo >&2 "No uptime!"; exit 1; }
-#type hostname >/dev/null 2>&1 || { echo >&2 "No hostname!"; exit 1; }
-#uname_return=$(uname -a)
-#system=$(echo $uname_return | awk 'NF>1{print $NF}')
-return ;
+    #type uptime >/dev/null 2>&1 || { echo >&2 "No uptime!"; exit 1; }
+    #type hostname >/dev/null 2>&1 || { echo >&2 "No hostname!"; exit 1; }
+    #uname_return=$(uname -a)
+    #system=$(echo $uname_return | awk 'NF>1{print $NF}')
+    return
 }
 ############################################
 # setup shell bashrc zshrc
@@ -45,30 +40,14 @@ return ;
 ############################################
 shell_setup(){
     echo "################################";
+    printf "${GREEN}Checking shell configurations...${NC}\n"
     echo "\$SHELL   : $SHELL"
     echo "env check";
     echo "\$PATH check";
     echo "\$HOME check";
-    echo "################################";
     shell=`basename $SHELL`
-    if [[ -f "$HOME/.${shell}rc" ]];then
-        echo "Found .${shell}rc in ${HOME}.";
-        echo "Type 1 for swap the files."
-        echo "Type 2 for merge two .${shell}rc."
-        while true; do
-            read sm
-            case $sm in
-                1 ) file_swap $HOME/.${shell}rc $SRC/configfiles/.${shell}rc;
-                    break;;
-                2 ) file_merge $HOME/.${shell}rc $SRC/configfiles/.${shell}rc;
-                    break;;
-                * ) echo "Please answer 1 or 2.";;
-            esac
-        done
-    else
-        echo "Copied .${shell}rc file to $HOME";
-        cp $SRC/configfiles/${shell}rc $HOME
-    fi
+    file_handler ${shell}rc
+    file_handler aliases
     return
 }
 ############################################
@@ -78,23 +57,56 @@ shell_setup(){
 ############################################
 vim_setup(){
     echo "################################";
-    echo vim setup;
+    printf "${GREEN}Checking vim configurations...${NC}\n"
+    file_handler 'vimrc'
+    return
 }
 ############################################
 # setup git shortcuts, name, email, ssh
 ############################################
 git_setup(){
     echo "################################";
-    echo git setup;
+    printf "${GREEN}Checking git configurations...${NC}\n"
+    file_handler 'gitconfig'
+    return
 }
 ############################################
 # setup tmux config
 ############################################
 tmux_setup(){
     echo "################################";
-    echo tmux setup;
+    printf "${GREEN}Checking tmux configurations...${NC}\n"
+    file_handler 'tmux.conf'
+    return
 }
-
+############################################
+# file handler
+# decide if swap or merge or do nothing
+############################################
+file_handler(){
+    echo "################################";
+    if [[ -f "$HOME/.${1}" ]];then
+        printf "${RED}Found .${1} in ${HOME}.${NC}\n";
+        echo "Type 0 for dont change .${1}."
+        echo "Type 1 for swap the files."
+        echo "Type 2 for merge two .${1}."
+        while true; do
+            read sm
+            case $sm in
+                0 ) echo No change on ${HOME}/.${1}; break;;
+                1 ) file_swap $SRC/dotFiles/${1} $HOME/.${1};
+                    break;;
+                2 ) file_merge $SRC/dotFiles/${1} $HOME/.${1};
+                    break;;
+                * ) echo "Please answer 0, 1 or 2.";;
+            esac
+        done
+    else
+        printf "${YELLOW}Copied .${1} file to $HOME${NC}\n";
+        cp $SRC/dotFiles/${1} $HOME/.${1}
+    fi
+    return
+}
 ############################################
 # file merge 
 # append new file at the end of the original
@@ -102,7 +114,8 @@ tmux_setup(){
 ############################################
 file_merge(){
     echo "################################";
-    echo File merged between
+    cat $1 >> $2; 
+    printf "${YELLOW}File merged between${NC}\n"
     echo $1 
     echo $2
     return
@@ -114,11 +127,17 @@ file_merge(){
 ############################################
 file_swap(){
     echo "################################";
-    echo File swapped between
+    printf "${YELLOW}File swapped between${NC}\n"
     echo $1 
     echo $2
-    cp $1 ${1}.bak
-    echo ${1}.bak created.
+    last_bak=$2
+    while [[ -f ${last_bak}.bak ]]; do
+        last_bak=${last_bak}.bak
+    done
+    mv $2 ${last_bak}.bak
+    cp $1 $2
+    printf "${YELLOW}Backup file created at${NC}\n"
+    echo ${last_bak}.bak
     return
 }
 ############################################
@@ -126,7 +145,15 @@ file_swap(){
 # Main		:
 # Issues	:
 ############################################
-echo "Linux Setup Script. Version 0.1."
+# Absolute path this script is in
+SCRIPTPATH=`readlink -f "$0"`
+SRC=`dirname $SCRIPTPATH`
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[0;33m'
+NC='\033[0m' # No Color
+
+printf "${GREEN}Linux Setup Script. Version 0.1.${NC}\n"
 check_sys;
 shell_setup;
 vim_setup;
@@ -143,6 +170,3 @@ exit;
 #for i in $(seq 1 2 20);do
 #	echo number $i
 #done
-
-
-
