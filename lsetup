@@ -85,7 +85,7 @@ tmux_setup(){
 ############################################
 file_handler(){
     echo "################################";
-    if [[ -f "$HOME/.${1}" ]];then
+    if [ -f "$HOME/.${1}" ];then
         printf "${RED}Found .${1} in ${HOME}.${NC}\n";
         echo "Type 0 for dont change .${1}."
         echo "Type 1 for swap the files."
@@ -131,7 +131,7 @@ file_swap(){
     echo $1 
     echo $2
     last_bak=$2
-    while [[ -f ${last_bak}.bak ]]; do
+    while [ -f ${last_bak}.bak ]; do
         last_bak=${last_bak}.bak
     done
     mv $2 ${last_bak}.bak
