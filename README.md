@@ -26,6 +26,13 @@ This is a project that simple setup the linux env cutomizely respect to the hard
   2. mkitool
   3. worklog
   4. mkco
+ 8. Detect fun binaries and prompt to setup
+  1. cowsay
+  2. toilet
+  3. figlet
+  4. telnet
+  5. sl
+  6. fortune
 
 
 **Version 0.1**
