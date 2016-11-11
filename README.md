@@ -20,7 +20,11 @@ This is a project that simple setup the linux env cutomizely respect to the hard
   3. Prompt to config bundles
  4. Detect git and prompt to setup
  5. Detect tmux and prompt to setup
- 6. Detect pushbullet and prompt to setup
+ 6. Detect popular repos and prompt to setup
+  1. pushbullet-bash by red5d
+  2. htop
+  3. rsync
+  4. apache
  7. Detect personal scripts and prompt to setup
   1. tpp
   2. mkitool

@@ -80,6 +80,18 @@ tmux_setup(){
     return
 }
 ############################################
+# setup tmux config
+############################################
+pushbullet_setup(){
+    echo "################################";
+    printf "${GREEN}Checking pushbullet configurations...${NC}\n"
+    if [ -x $HOME/git/pushbullet-bash/pushbullet ] ;then
+        echo "Pushbullet exsits."
+        
+    file_handler 'tmux.conf'
+    return
+}
+############################################
 # file handler
 # decide if swap or merge or do nothing
 ############################################
