@@ -59,6 +59,9 @@ vim_setup(){
     echo "################################";
     printf "${GREEN}Checking vim configurations...${NC}\n"
     file_handler 'vimrc'
+
+    mkdir -p $HOME/.vim
+    cp -nv $SRC/dotFiles/vim/* $HOME/.vim
     return
 }
 ############################################
@@ -87,7 +90,7 @@ pushbullet_setup(){
     printf "${GREEN}Checking pushbullet configurations...${NC}\n"
     if [ -x $HOME/git/pushbullet-bash/pushbullet ] ;then
         echo "Pushbullet exsits."
-        
+    fi
     file_handler 'tmux.conf'
     return
 }
@@ -158,13 +161,12 @@ file_swap(){
 # Issues	:
 ############################################
 # Absolute path this script is in
-SCRIPTPATH=`readlink -f "$0"`
+SCRIPTPATH=`readlink -f "$_"`
 SRC=`dirname $SCRIPTPATH`
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[0;33m'
 NC='\033[0m' # No Color
-
 printf "${GREEN}Linux Setup Script. Version 0.1.${NC}\n"
 check_sys;
 shell_setup;
@@ -172,7 +174,6 @@ vim_setup;
 git_setup;
 tmux_setup;
 #source $HOME/.${shell}rc
-exit;
 ############################################
 # example code
 ############################################

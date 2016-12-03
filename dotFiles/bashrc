@@ -38,6 +38,20 @@ if [ -f ~/.aliases ]; then
     source ~/.aliases
 fi
 
+# colorful prompt
+ DEFAULT="[39;49m"
+ RED="[31;49m"
+ GREEN="[32;49m"
+ BLUE="[34;49m"
+ export PS1='\e${RED}\u\e${DEFAULT}\e${GREEN}@\h\e${DEFAULT}\e${BLUE}:\w\e${BLUE}\n$ \e${DEFAULT}'
+
+# correct ls directories colors
+eval $(dircolors -b | head -1)
+
+function cd {
+  builtin cd "$@" && ls -ClphF --color=auto --group-directories-first
+}
+
 case ${TERM} in
     xterm*|rxvt*|Eterm|aterm|kterm|gnome*)
         PROMPT_COMMAND=${PROMPT_COMMAND:+$PROMPT_COMMAND; }'printf "\033]0;%s@%s:%s\007" "${USER}" "${HOSTNAME%%.*}" "${PWD/#$HOME/~}"'
