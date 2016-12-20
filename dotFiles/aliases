@@ -25,6 +25,8 @@ alias lsart='lst -r'
 alias lsm='lsart | more'
 alias dir='lsa --format=vertical'
 alias vdir='lsa --format=long'
+#export LS_COLORS='ow=01;36;39'
+export LS_COLORS=`echo $LS_COLORS | sed "s/:ow=34;42/:ow=34;39/g"`
 #-------------------
 # dir aliases
 #-------------------
@@ -49,11 +51,11 @@ alias sshfp='ssh -Y yanc@flip.engr.oregonstate.edu'
 #-------------------
 # additional aliases 
 #-------------------
-#alias suinst='sudo pact install '
+alias ins='sudo apt-get install'
 alias pi='seq -f '4/%g' 1 2 99999 | paste -sd-+ | bc -l'
-#alias m99='for i in {1..9}; do for j in $(seq 1 $i); do echo -ne $i×$j=$((i*j))\\t;done; echo;done'
-#alias fortunecow='cowsay -f "$(ls /usr/share/cowsay/cows/ | sort -R | head -1)" "$(fortune -s)"|toilet -f term --gay;figlet "Welcome back!"|toilet -f term --gay'
-#alias starwar='telnet towel.blinkenlights.nl'
+alias m99='for i in {1..9}; do for j in $(seq 1 $i); do echo -ne $i×$j=$((i*j))\\t;done; echo;done'
+alias fortunecow='cowsay -f "$(ls -1 /usr/share/cowsay/cows/ | sort -R | head -1)" "$(fortune -s)"|toilet -f term --gay;figlet "Welcome back!"|toilet -f term --gay'
+alias starwar='telnet towel.blinkenlights.nl'
 #alias mg='sudo mount -t cifs //76.115.115.142/G -o username="chauncey.yan@hotmail.com",password="iamYCX72&@" /mnt/G'
 #alias wechat='/opt/google/chrome/google-chrome --profile-directory=Default --app-id=jidckkocjhilapjdibodfopjkbnibkcf'
 #alias ele='java -jar ~/471/electric/electricBinary-9.06.jar'
@@ -61,5 +63,5 @@ alias pi='seq -f '4/%g' 1 2 99999 | paste -sd-+ | bc -l'
 #alias adb='/cygdrive/c/Users/cyanjin/Documents/AndroidSDK/platform-tools/adb.exe'
 #alias qemu='qemu-system-i386 -gdb tcp::5515 -S -nographic -kernel bzImage-qemux86.bin -drive file=core-image-lsb-sdk-qemux86.ext3,if=virtio -enable-kvm -net none -usb -localtime --no-reboot --append "root=/dev/vda rw console=ttyS0 debug"' 
 #alias tmuxa='tmux -S /tmp/cs444-015 attach'
-#alias pb='~/git/pushbullet-bash/pushbullet'
+alias pb='~/git/pushbullet-bash/pushbullet'
 

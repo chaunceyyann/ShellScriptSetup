@@ -60,8 +60,8 @@ vim_setup(){
     printf "${GREEN}Checking vim configurations...${NC}\n"
     file_handler 'vimrc'
 
-    mkdir -p $HOME/.vim
-    cp -nv $SRC/dotFiles/vim/* $HOME/.vim
+    mkdir -p $HOME/.vim/colors
+    cp -nv $SRC/dotFiles/vim/colors/* $HOME/.vim/colors
     return
 }
 ############################################
