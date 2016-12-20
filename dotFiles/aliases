@@ -30,8 +30,11 @@ export LS_COLORS=`echo $LS_COLORS | sed "s/:ow=34;42/:ow=34;39/g"`
 #-------------------
 # dir aliases
 #-------------------
-alias ..='cd ..'
 alias mkdir='mkdir -p'
+alias ..='cd ..'
+function cd {
+  builtin cd "$@" && ls -ClphF --color=auto --group-directories-first
+}
 #-------------------
 # file system aliases
 #-------------------
