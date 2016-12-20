@@ -1,0 +1,213 @@
+#!/bin/bash
+#####################################################################################################
+# Program	: Make Code
+# Author	: Chauncey Yan
+# Functions	: Make the sample code for different code(C,Bash,Perl)
+# Revision	: 0.8
+# Mod date	: May 23
+# Updates	: make multiple file at one time
+# Issues	:
+#####################################################################################################
+# Init		: filename, cur_date
+#####################################################################################################
+for i in $@; do
+filepath=$i
+filename=$i
+cur_date=`date | awk '{print $2, $3, $6}'`
+# stripped the function to distinguish the path and file name for better output
+slash=`echo $i | grep "/"` 
+if [[ -n $slash ]];then
+	filename=`echo $i | awk -F'/' '{print $NF}'`
+	filedir=`echo $i | awk -F'/' '{for (i=1;i<NF;i++) printf "%s/",$i}'`
+	echo fn:$filename fd:$filedir fp:$filepath
+fi
+filename_short=`echo $filename | awk -F'.' '{print $1}'` 
+filename_exten=`echo $filename | awk -F'.' '{print $2}'` 
+
+#####################################################################################################
+# Function	: make a long line
+# Input		: length
+# Output	: line in the file
+# Issues	:
+#####################################################################################################
+function longline(){
+  	for k in `seq 1 $1`; do
+		echo -n "$commentc" >> $filepath
+	done
+}
+
+#####################################################################################################
+# Function	: function header
+# Input		: null
+# Output	: header in the file
+# Issues	:
+#####################################################################################################
+function func(){
+	echo -n "$commentb" >> $filepath
+	longline 100
+	echo >> $filepath
+	echo -e "$commentc" Function'\t': >> $filepath
+	echo -e "$commentc" Input'\t\t': >> $filepath
+	echo -e "$commentc" Output'\t':  >> $filepath
+	echo -e "$commentc" Issues'\t':  >> $filepath
+	longline 100
+	echo "$commentd" >> $filepath
+	echo -e "$ftype"foo" (){\n\n\treturn ;\n}" >> $filepath
+	echo >> $filepath
+}
+
+#####################################################################################################
+# Function	: function declaration
+# Input		: null
+# Output	: function declaration in the file
+# Issues	:
+#####################################################################################################
+function func_decla(){
+	echo $commenta Functions declarations >> $filepath
+	echo "$ftype"foo" ();" >> $filepath
+	echo >> $filepath
+}
+
+#####################################################################################################
+# Main		:
+# Issues	:
+#####################################################################################################
+if [[ -n $filepath ]];then
+	if [[ -e $filepath ]];then
+		echo $filepath exists. Overwrite it? y/n
+		read input
+		if [ $input != 'y' ] && [ $input != "yes" ];then
+			exit
+		fi
+	fi
+	if [[ $filename_exten == '' ]] || [[ $filename_exten == "sh" ]];then
+		shebang="#!$SHELL\n"
+		vtype=""
+		vindi="$"
+		vdefiner=""
+		ftype=""
+		commenta='#'
+		commentb='##'
+		commentc='#'
+		commentd="##"
+	elif [[ $filename_exten == "pl" ]];then
+		shebang="#!/wv/pevtools/aoi/bin/perl\n"
+		vtype="my "
+		ftype="sub "
+		vindi="$"
+		vdefiner="$"
+		commenta='#'
+		commentb='##'
+		commentc='#'
+		commentd="##"
+	elif [[ $filename_exten == "c" ]] || [[ $filename_exten == "cpp" ]];then
+		unset shebang
+		vtype="int "
+		ftype="int "
+		vindi=""
+		vdefiner=""
+		commenta="//"
+		commentb="/*"
+		commentc="*"
+		commentd="*/"
+	else
+		echo Supported file extension types:
+		echo "mkmyco filename[empty](Bash) filename.c/cpp(C/C++) filename.pl(Perl)"
+		exit
+	fi
+	# Make a new file
+	echo -n -e $shebang > $filepath
+	#
+	echo -n "$commentb" >> $filepath
+	longline 100
+	echo >> $filepath
+	echo -e "$commentc" Program'\t': $filename_short >> $filepath
+	echo -e "$commentc" Author'\t': Chauncey Yan >> $filepath
+	echo -e "$commentc" Functions'\t': >> $filepath
+	echo -e "$commentc" Revision'\t': 0.1 >> $filepath
+	echo -e "$commentc" Mod date'\t': $cur_date >> $filepath
+	echo -e "$commentc" Updates'\t':  >> $filepath
+	echo -e "$commentc" Issues'\t':  >> $filepath
+	longline 101
+	echo "$commentc" >> $filepath
+	# Init
+	echo -e "$commentc" Init'\t\t': >> $filepath
+	echo -n "$commentc" >> $filepath
+	longline 99
+	echo "$commentd" >> $filepath
+	# Libs goes here
+	# Function block for bash shell script(no possible declaration)
+	if [[ $filename_exten == '' ]] || [[ $filename_exten == "sh" ]];then
+		func
+	elif [[ $filename_exten == 'pl' ]];then
+		echo "use Getopt::Long;" >> $filepath
+		func_decla
+		echo "# Getopt long" >> $filepath
+		echo "local (@p_R, @p_C);" >> $filepath
+		echo "GetOptions('R=s{2,}'=> \@p_R, 'C=s{2,}' => \@p_C);" >> $filepath
+		echo >> $filepath
+	elif [[ $filename_exten == 'c' ]];then
+		echo -e "#include <stdio.h>\n#include <stdlib.h>\n#include <sys/types.h>\n#include <sys/stat.h>">> $filepath
+		echo -e "#include <fcntl.h>\n#include <unistd.h>\n#include <string.h>\n#include <time.h>\n#define BUF_SIZE 256\n">> $filepath
+		func_decla
+	elif [[ $filename_exten == "cpp" ]];then
+		echo -e "#include <iostream>\n#include <cstdlib>\n#include <cstring>\n#include <ctime>\n#define BUF_SIZE 256\n">> $filepath
+		func_decla
+	fi
+	# var=val
+	echo -e "$vtype$vdefiner"var="$vindi"val";\n" >> $filepath
+	# Main
+	echo -n "$commentb" >> $filepath
+	longline 100
+	echo >> $filepath
+	echo -e "$commentc" Main'\t\t': >> $filepath
+	echo -e "$commentc" Issues'\t':  >> $filepath
+	longline 100
+	echo "$commentd" >> $filepath
+
+	# Different main styles
+	if [[ $filename_exten == '' ]] || [[ $filename_exten == "sh" ]];then
+		echo -e "if [[ -z \$var ]];then # -n for not empty" >> $filepath
+		echo -e "\techo var is empty\nfi" >> $filepath
+		echo -e "for i in \$(seq 1 2 20);do\n\techo number \$i\ndone\n\n" >> $filepath
+	elif [[ $filename_exten == "pl" ]];then
+		echo -e "if (-e \$filename) {\n\tsystem(\"rm \$filename\");\n}\n" >> $filepath
+		echo -e "foreach \$i(@ARGV) {\n\tprint \"\$i \";\n}" >> $filepath
+	elif [[ $filename_exten == "c" ]] || [[ $filename_exten == "cpp" ]];then
+		echo "int main (int argc, char *argv[]){" >> $filepath
+		echo -e "\tint fd, num_write;\n\tchar buf[BUF_SIZE];\n\t// open the file for writing" >> $filepath
+		echo -e "\tif ((fd = open(\"file_path\",\n\t\t\t\t\tO_RDWR | O_CREAT | O_APPEND," >> $filepath
+		echo -e "\t\t\t\t\tS_IRUSR | S_IWUSR)) == -1){\n\t\tperror("open");\n\t\texit(EXIT_FAILURE);\n\t}\n" >> $filepath
+		echo -e "\tif (write(fd, buf, strlen(buf)) != strlen(buf)){\n\t\tperror(\"Can't write the whole buf \");" >> $filepath
+		echo -e -n "\t\texit(EXIT_FAILURE);\n\t}\n\tmemset(buf, ">> $filepath 
+		echo -n "'\0', " >> $filepath
+		echo -e "BUF_SIZE);\n\n" >> $filepath
+		echo -e "\tfor (int i = 1; i < argc; i++){\n\n\t}" >> $filepath
+	else
+		echo could not generate main
+		exit
+	fi
+
+	echo >> $filepath
+	# Function block for perl and c
+	if [[ $filename_exten == 'pl' ]] || [[ $filename_exten == 'c' ]] || [[ $filename_exten == "cpp" ]];then
+		func
+	fi
+
+else
+	echo "Please provide filenames and file extension types (supported multiple files creation)."
+	echo "EXAMPLE: mkmyco filename.sh(Shell's being used) filename.c(C) filename.cpp(C++) filename.pl(Perl)"
+	exit
+fi
+# Check if there is a shebang and chmod to excutable accordingly
+if [[ -n $shebang ]];then
+	chmod 755 $filepath
+fi
+
+done # for multiple files
+if [[ -z $filepath ]];then
+	echo "Please provide filenames and file extension types (supported multiple files creation)."
+	echo "EXAMPLE: mkmyco filename.sh(Shell's being used) filename.c(C) filename.cpp(C++) filename.pl(Perl)"
+	exit
+fi
+

@@ -1,0 +1,59 @@
+#!/bin/bash
+#############################################################################
+# Program		: Make it tool
+# Author 		: Chauncey Yan
+# Description 	: shoot the code to the /local/bin
+# Revision 		: 1.1
+# Date 			: May 22st
+# Update 		: check the file executable
+# Known issue 	: 
+#############################################################################
+# Init 			:
+#############################################################################
+path_bin="$HOME/local/bin/"
+
+#############################################################################
+# Function		: check if the file executable
+#############################################################################
+checkfile(){
+	if [[ ! -f $1 ]];then
+		echo The file not exists
+		exit
+	else
+		if [[ ! -x $1 ]];then
+			echo "File is not executable. Press ENTER to make it executable(755)" 	
+			read c
+			if [[ -n $c ]];then
+				exit
+			else
+				chmod 755 $1
+			fi
+		fi
+	fi
+}
+
+#############################################################################
+# Main			:
+#############################################################################
+checkfile $1
+filename=`echo $1 | awk -F'/' '{print $NF}'`
+if [[ -n $2 ]];then
+	filename=$2
+fi
+
+if [[ -f $1 ]];then
+	if [[ -f $path_bin$filename ]];then
+		echo Program already exists in $path_bin
+		echo Overwrite? y/n 
+		read input
+		if [[ $input == 'n' ]];then
+			echo Job canceled.
+			exit
+		fi
+	fi
+	cp $1 $path_bin$2
+	echo $path_bin
+	ls -lph --color=auto  $path_bin
+else
+	echo $1 does not exists!
+fi
