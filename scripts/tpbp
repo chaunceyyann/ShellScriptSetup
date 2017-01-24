@@ -1,0 +1,16 @@
+#!/bin/sh
+#################################
+# time the process, then using
+# pushbullet to notice user
+# when its done if the process
+# is longger than 10 second
+#################################
+
+begin_time=$(date +'%s')
+$@
+end_time=$(date +'%s')
+elapse=$(($end_time-$begin_time))
+if [[ $elapse -gt 2 ]];then
+    ~/git/pushbullet-bash/pushbullet push all note Done $@
+fi
+
