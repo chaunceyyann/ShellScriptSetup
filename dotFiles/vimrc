@@ -13,23 +13,15 @@ autocmd FileType c,cpp set cindent
 " Turn on syntax highlighting
 syntax on  
 
+" Always show statusline
+"set laststatus=2
+
+" Use 256 colours (Use this setting only if your terminal supports 256 colours)
+set t_Co=256
 "Change the color of the text
 "color slate
 "color desert
 "color torte
-
-python from powerline.vim import setup as powerline_setup
-python powerline_setup()
-python del powerline_setup
-
-" Color scheme (terminal)
-set rtp+=$HOME/.local/lib/python2.7/site-packages/powerline/bindings/vim/
-
-" Always show statusline
-set laststatus=2
-
-" Use 256 colours (Use this setting only if your terminal supports 256 colours)
-set t_Co=256
 colorscheme Benokai
 "colorscheme ir_black
 
@@ -42,8 +34,8 @@ set cindent
 set autoindent
 
 " Whitespace
-set wrap
-set textwidth=80
+"set wrap
+"set textwidth=80
 set formatoptions=tcqrn1
 set shiftwidth=4
 set tabstop=4

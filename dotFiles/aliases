@@ -14,7 +14,7 @@
 # -F : * after executables, | after pipes, @ after symlinks
 # -C : Force multi-column output
 #-------------------
-alias ls='ls -C --color=auto --group-directories-first'
+alias ls='ls -C --color=auto --group-directories-first -I NTUSER.DAT\* -I ntuser.dat\*i --hide=ntuser.* -I desktop.ini'
 alias ll='ls -lphF'
 alias l='ls -ph'
 alias la='ll -A'
@@ -67,4 +67,6 @@ alias starwar='telnet towel.blinkenlights.nl'
 #alias qemu='qemu-system-i386 -gdb tcp::5515 -S -nographic -kernel bzImage-qemux86.bin -drive file=core-image-lsb-sdk-qemux86.ext3,if=virtio -enable-kvm -net none -usb -localtime --no-reboot --append "root=/dev/vda rw console=ttyS0 debug"' 
 #alias tmuxa='tmux -S /tmp/cs444-015 attach'
 alias pb='~/git/pushbullet-bash/pushbullet'
-
+function gitci() {
+    git add -A && git commit -m "$@" && git push
+}
