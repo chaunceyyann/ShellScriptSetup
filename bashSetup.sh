@@ -1,6 +1,22 @@
-#!/bin/sh
+<#
+.SYNOPSIS
+    Linux Setup Script for configuring development environment
+.DESCRIPTION
+    This script automates the setup of various development tools including:
+    - Shell configuration (bash/zsh)
+    - Vim editor setup
+    - Git configuration
+    - Tmux setup
+    - System information display
+.NOTES
+    Author: Chauncey Yan
+    Version: 0.1
+    Last Modified: Oct 10 2016
+#>
+
+#!/bin/bash
 ############################################
-# Program	: Linux Setup Script
+# Program	: Bash Setup Script
 # Author	: Chauncey Yan
 # Features	: List the info. of the system. 
 #             Prompt to setup shell, vim, 
@@ -160,6 +176,39 @@ file_swap(){
 # Main		:
 # Issues	:
 ############################################
+# check what shell is used
+############################################
+# Detect current shell
+############################################
+detect_shell() {
+    # Check current shell from $SHELL or $0
+    current_shell=$(basename "$SHELL")
+    if [ -z "$current_shell" ]; then
+        current_shell=$(basename "$0")
+    fi
+
+    case "$current_shell" in
+        "bash")
+            echo "Bash shell detected"
+            shell="bash"
+            ;;
+        "zsh") 
+            echo "Zsh shell detected"
+            shell="zsh"
+            ;;
+        "fish")
+            echo "Fish shell detected" 
+            shell="fish"
+            ;;
+        *)
+            echo "Unknown shell: $current_shell"
+            shell="unknown"
+            ;;
+    esac
+    return
+}
+
+detect_shell
 # Absolute path this script is in
 SCRIPTPATH=`readlink -f "$_"`
 SRC=`dirname $SCRIPTPATH`
@@ -168,6 +217,7 @@ GREEN='\033[0;32m'
 YELLOW='\033[0;33m'
 NC='\033[0m' # No Color
 printf "${GREEN}Linux Setup Script. Version 0.1.${NC}\n"
+# check what system is used
 check_sys;
 shell_setup;
 vim_setup;

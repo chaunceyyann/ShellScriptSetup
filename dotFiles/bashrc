@@ -20,7 +20,7 @@ fi
 # OS's.  We will be pre and post-pending to it below, with
 # OS-specific paths.
 ############################################################
-export PATH=/bin:/sbin:/usr/local/bin:/usr/bin:/usr/local/apps/bin
+export PATH=$PATH:/bin:/sbin:/usr/local/bin:/usr/bin:/usr/local/apps/bin
 export MANPATH=/usr/local/man:/usr/man:/usr/share/man
 export LESS="QMcde"
 export MORE="-c"
