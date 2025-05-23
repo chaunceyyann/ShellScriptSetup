@@ -15,10 +15,6 @@ function prompt {
 
   $reset = "`e[0m"
 
-  # Time
-  $time = (Get-Date).ToString("hh:mmtt")
-  $timeSegment = Add-Segment -bg 240 -fg 15 -text " $time " -icon "" -nextBg 190  # light green nextBg for venv/conda
-
   # Decide next segment color based on whether Git exists
   $gitExists = git rev-parse --is-inside-work-tree 2>$null
   $nextBg = if ($gitExists) { 27 } else { 0 }  # Blue if Git exists, otherwise default background
@@ -35,6 +31,13 @@ function prompt {
   if ($env:CONDA_DEFAULT_ENV -and !$env:VIRTUAL_ENV) {
       $condaSegment = Add-Segment -bg 190 -fg 0 -text " $($env:CONDA_DEFAULT_ENV) " -icon "🐍" -nextBg 99  # light green bg
   }
+
+  # Determine the nextBg for the time segment
+  $timeNextBg = if ($pythonSegment -or $condaSegment) { 190 } else { 99 }  # Connect to venv/conda or dir
+
+  # Time
+  $time = (Get-Date).ToString("hh:mmtt")
+  $timeSegment = Add-Segment -bg 240 -fg 15 -text " $time " -icon "" -nextBg $timeNextBg
 
   # Current dir
   $cwd = Split-Path -Leaf (Get-Location)
