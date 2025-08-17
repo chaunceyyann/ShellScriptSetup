@@ -1,0 +1,275 @@
+# Global .gitignore file
+# Place this in ~/.gitignore_global and reference it in your .gitconfig
+
+# ============================================================================
+# Operating System Files
+# ============================================================================
+
+# macOS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msm
+*.msp
+*.lnk
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*
+
+# ============================================================================
+# IDE and Editor Files
+# ============================================================================
+
+# Visual Studio Code
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# JetBrains IDEs
+.idea/
+*.iws
+*.iml
+*.ipr
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Vim
+[._]*.s[a-v][a-z]
+[._]*.sw[a-p]
+[._]s[a-rt-v][a-z]
+[._]ss[a-gi-z]
+[._]sw[a-p]
+Session.vim
+.netrwhist
+*~
+tags
+
+# Emacs
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+auto-save-list
+tramp
+.\#*
+
+# Nano
+.save
+
+# ============================================================================
+# Development Environment Files
+# ============================================================================
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.npm
+.yarn-integrity
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+.pytest_cache/
+
+# Java
+*.class
+*.jar
+*.war
+*.ear
+*.nar
+hs_err_pid*
+
+# C/C++
+*.o
+*.so
+*.a
+*.exe
+*.out
+*.dll
+
+# Go
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+vendor/
+
+# Rust
+target/
+**/*.rs.bk
+
+# .NET
+bin/
+obj/
+*.user
+*.userosscache
+*.sln.docstates
+
+# ============================================================================
+# Environment and Configuration Files
+# ============================================================================
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# API keys and secrets
+secrets.yml
+secrets.yaml
+config/secrets.yml
+config/database.yml
+.secret
+*.pem
+*.key
+*.crt
+
+# Configuration files with sensitive data
+config.json
+settings.json
+local_settings.py
+
+# ============================================================================
+# Build and Dependency Files
+# ============================================================================
+
+# Build outputs
+build/
+dist/
+out/
+target/
+
+# Dependency directories
+node_modules/
+bower_components/
+vendor/
+
+# Package files
+*.tgz
+*.tar.gz
+
+# ============================================================================
+# Logs and Databases
+# ============================================================================
+
+# Log files
+*.log
+logs/
+log/
+
+# Database files
+*.sqlite
+*.sqlite3
+*.db
+
+# ============================================================================
+# Temporary and Cache Files
+# ============================================================================
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.temp
+*.swp
+*.swo
+
+# Cache directories
+.cache/
+.parcel-cache/
+.next/
+.nuxt/
+.sass-cache/
+
+# ============================================================================
+# Documentation and Generated Files
+# ============================================================================
+
+# Documentation builds
+docs/_build/
+site/
+
+# Coverage reports
+coverage/
+*.lcov
+.nyc_output
+.coverage
+
+# ============================================================================
+# Miscellaneous
+# ============================================================================
+
+# Backup files
+*.bak
+*.backup
+*~
+
+# Archive files (if not part of project)
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+*.rar
+*.7z
+
+# System files
+.system
+
+# Local history
+.history/

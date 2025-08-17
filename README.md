@@ -1,52 +1,100 @@
-Linux Setup Script
-===
-**Descriptions**
+# Modern Development Environment Setup
+> Cross-platform shell and development environment configuration tool
 
-This is a project that simple setup the linux env cutomizely respect to the hardware is provided.
+## 🎯 Purpose
 
+This repository provides automated setup scripts for modern development environments across macOS, Windows, and Linux. It focuses on creating beautiful, functional shell environments with proper font support and modern tooling.
 
-**Program flow**
- 1. System report: parsing all avaliable usefull info from this hardware
-  1. OS 
-  2. Kernel 
-  3. coding env 
-  4. hardware info
- 2. Detect shell and prompt to setup
-  1. Change to zsh?
-  2. Prompt to setup aliases
- 3. Detect vim and prompt to setup
-  1. Prompt to setup vimrc
-  2. Prompt to copt colorscheme file over
-  3. Prompt to config bundles
- 4. Detect git and prompt to setup
- 5. Detect tmux and prompt to setup
- 6. Detect popular repos and prompt to setup
-  1. pushbullet-bash by red5d
-  2. htop
-  3. rsync
-  4. apache
- 7. Detect personal scripts and prompt to setup
-  1. tpp
-  2. mkitool
-  3. worklog
-  4. mkco
- 8. Detect fun binaries and prompt to setup
-  1. cowsay
-  2. toilet
-  3. figlet
-  4. telnet
-  5. sl
-  6. fortune
+## ✨ Features
 
+### 🍎 macOS Setup
+- **Fish Shell** with Oh My Fish framework
+- **Nerd Fonts** (Cascadia Code or Source Code Pro)
+- Modern prompt themes and plugins
+- Development tools integration
 
-**Version 0.1**
- 1. System report: parsing all avaliable usefull info from this hardware
-  1. OS 
-  2. Kernel 
-  3. Shell 
-  4. coding env 
-  5. hardware info
- 2. Prompt to setup shell rc file and aliases
- 3. Prompt to setup vimrc
- 4. Prompt to setup gitconfig
- 5. Prompt to setup tmux.conf
+### 🪟 Windows Setup
+- **PowerShell** with Oh My Posh
+- **Nerd Fonts** for consistent iconography
+- Windows Terminal configuration
+- Cross-platform tool detection
+
+### 🐧 Linux Setup (Legacy)
+- Bash/Zsh configuration
+- Vim setup with color schemes
+- Git and Tmux configuration
+- System information reporting
+
+## 🚀 Quick Start
+
+### macOS
+```bash
+# Run the macOS setup script
+./setup/macos-setup.sh
+```
+
+### Windows
+```powershell
+# Run the Windows setup script (as Administrator)
+.\setup\windows-setup.ps1
+```
+
+### Linux (Legacy)
+```bash
+# Run the original Linux setup
+./bashSetup.sh
+```
+
+## 📁 Repository Structure
+
+```
+ShellScriptSetup/
+├── setup/                    # Modern setup scripts
+│   ├── macos-setup.sh       # macOS Fish + OMF setup
+│   ├── windows-setup.ps1    # Windows PowerShell + OMP setup
+│   └── fonts/               # Font installation scripts
+├── configs/                 # Modern configuration files
+│   ├── fish/               # Fish shell configs
+│   ├── powershell/         # PowerShell profiles
+│   └── shared/             # Cross-platform configs
+├── dotFiles/               # Legacy dotfiles (maintained)
+├── scripts/                # Utility scripts
+└── legacy/                 # Original setup scripts
+```
+
+## 🎨 Included Themes & Fonts
+
+### Nerd Fonts
+- **Cascadia Code Nerd Font** - Microsoft's modern monospace font
+- **Source Code Pro Nerd Font** - Adobe's popular programming font
+
+### Themes
+- **Fish**: Modern, Git-aware prompts with async loading
+- **PowerShell**: Cross-platform Oh My Posh themes with icons
+
+## 🛠️ What Gets Configured
+
+- ✅ Shell environment (Fish/PowerShell)
+- ✅ Modern prompt with Git integration
+- ✅ Nerd Font installation and configuration
+- ✅ Common development tools detection
+- ✅ Useful aliases and functions
+- ✅ Color schemes and themes
+- ✅ Package manager setup (Homebrew/Chocolatey)
+
+## 📋 Requirements
+
+### macOS
+- macOS 10.15+ (Catalina or later)
+- Xcode Command Line Tools
+- Internet connection for downloads
+
+### Windows
+- Windows 10/11
+- PowerShell 5.1+ (PowerShell 7+ recommended)
+- Administrator privileges for font installation
+- Internet connection for downloads
+
+## 🤝 Contributing
+
+Feel free to contribute improvements, additional themes, or support for other platforms!

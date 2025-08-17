@@ -1,0 +1,214 @@
+# Modern Git Configuration
+# Place this in ~/.gitconfig or use: git config --global include.path /path/to/this/file
+
+[user]
+	# Set your name and email
+	# name = Your Name
+	# email = your.email@example.com
+
+[core]
+	# Use VS Code as default editor (change to your preference)
+	editor = code --wait
+	# Handle line endings automatically
+	autocrlf = input
+	# Make Git handle unicode filenames properly
+	quotepath = false
+	# Use global .gitignore
+	excludesfile = ~/.gitignore_global
+
+[init]
+	# Use 'main' as default branch name
+	defaultBranch = main
+
+[pull]
+	# Rebase instead of merge when pulling
+	rebase = true
+
+[push]
+	# Push current branch to upstream branch of same name
+	default = simple
+	# Push tags along with commits
+	followTags = true
+
+[fetch]
+	# Prune remote branches that no longer exist
+	prune = true
+
+[rebase]
+	# Automatically stash and unstash during rebase
+	autoStash = true
+
+[merge]
+	# Use VS Code for merge conflicts (change to your preference)
+	tool = vscode
+	# Include common ancestor in merge conflicts
+	conflictstyle = diff3
+
+[mergetool "vscode"]
+	cmd = code --wait $MERGED
+
+[diff]
+	# Use VS Code for diffs (change to your preference)
+	tool = vscode
+	# Detect renames and copies
+	renames = copies
+
+[difftool "vscode"]
+	cmd = code --wait --diff $LOCAL $REMOTE
+
+[color]
+	# Enable color output
+	ui = auto
+
+[color "branch"]
+	current = yellow reverse
+	local = yellow
+	remote = green
+
+[color "diff"]
+	meta = yellow bold
+	frag = magenta bold
+	old = red bold
+	new = green bold
+	whitespace = red reverse
+
+[color "status"]
+	added = green
+	changed = yellow
+	untracked = red
+
+[status]
+	# Show submodule summary
+	submoduleSummary = true
+	# Show untracked files in untracked directories
+	showUntrackedFiles = all
+
+[log]
+	# Show dates in relative format
+	date = relative
+
+[format]
+	# Pretty log format
+	pretty = format:%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)
+
+# Useful aliases
+[alias]
+	# Basic shortcuts
+	st = status
+	ci = commit
+	co = checkout
+	br = branch
+	df = diff
+	dc = diff --cached
+
+	# Logging
+	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+	lol = log --graph --decorate --pretty=oneline --abbrev-commit
+	lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
+	ls = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate
+	ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
+
+	# Show files in a commit
+	sf = show --pretty="" --name-only
+
+	# Diff
+	d = diff --word-diff
+	dc = diff --cached
+
+	# Quick commit
+	ac = !git add -A && git commit
+	acm = !git add -A && git commit -m
+
+	# Undo last commit (keep changes)
+	undo = reset HEAD~1 --mixed
+
+	# Reset to last commit (lose changes)
+	wipe = reset --hard HEAD
+
+	# Show current branch
+	cb = symbolic-ref --short HEAD
+
+	# List aliases
+	la = "!git config -l | grep alias | cut -c 7-"
+
+	# Find files
+	f = "!git ls-files | grep -i"
+
+	# Remove deleted files
+	r = !git ls-files -z --deleted | xargs -0 git rm
+
+	# Grep with line numbers
+	g = grep --break --heading --line-number
+
+	# Stash shortcuts
+	sl = stash list
+	sa = stash apply
+	ss = stash save
+	sp = stash pop
+
+	# Branch management
+	bd = branch -d
+	bD = branch -D
+
+	# Remote management
+	rv = remote -v
+
+	# Clean up merged branches
+	cleanup = "!git branch --merged | grep -v '\\*\\|main\\|master\\|develop' | xargs -n 1 git branch -d"
+
+	# Show tags
+	tags = tag -l
+
+	# Show remotes
+	remotes = remote -v
+
+	# Amend last commit
+	amend = commit --amend --no-edit
+
+	# Interactive rebase
+	rb = rebase -i
+
+	# Continue rebase/merge
+	cont = rebase --continue
+
+	# Abort rebase/merge
+	abort = rebase --abort
+
+	# Create and switch to new branch
+	nb = checkout -b
+
+	# Switch to previous branch
+	prev = checkout -
+
+	# Show summary of changes
+	summary = show --stat
+
+	# Show contributors
+	contributors = shortlog --summary --numbered
+
+	# Find commits by message
+	fm = "!f() { git log --all --grep=\"$1\" --oneline; }; f"
+
+	# Find commits by author
+	fa = "!f() { git log --all --author=\"$1\" --oneline; }; f"
+
+[help]
+	# Autocorrect typos after 2 seconds
+	autocorrect = 20
+
+[credential]
+	# Cache credentials for 24 hours
+	helper = cache --timeout=86400
+
+# Platform-specific settings
+[includeIf "gitdir/i:C:/"]
+	# Windows-specific settings
+	path = ~/.gitconfig_windows
+
+[includeIf "gitdir:/Users/"]
+	# macOS-specific settings
+	path = ~/.gitconfig_macos
+
+[includeIf "gitdir:/home/"]
+	# Linux-specific settings
+	path = ~/.gitconfig_linux
